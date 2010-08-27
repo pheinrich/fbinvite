@@ -1,0 +1,55 @@
+Facebook Invite Challenge
+Copyright (c) 2010  Peter Heinrich
+
+When Facebook opened their Seattle office, they wanted to celebrate with an
+open-house (recruiting) party in their new space.  Since space was limited,
+however, they chose to limit invitations to those who could solve a little
+puzzle they devised.
+
+http://www.facebook.com/note.php?note_id=146727365346299
+
+Actually, solutions to two puzzles were required, since the post above didn't
+explicitly reveal the URL where details of the challenge could be found.  In-
+stead, a partial URL was listed, with clues describing the last portion:
+
+  http://www.facebook.com/seattle/[insert-word-here]
+
+  The first occurrence of 'e' comes before 1 occurrence of 's'.
+  The first occurrence of 'i' comes before 1 occurrence of 'n'.
+  The first occurrence of 'i' comes before 1 occurrence of 'i'.
+  The first occurrence of 'n' comes before 2 occurrences of 'e'.
+  The first occurrence of 'e' comes before 1 occurrence of 'e'.
+  The first occurrence of 'i' comes before 1 occurrence of 'v'.
+  The first occurrence of 'n' comes before 1 occurrence of 'i'.
+  The first occurrence of 'n' comes before 1 occurrence of 'v'.
+  The first occurrence of 'i' comes before 1 occurrence of 's'.
+  The first occurrence of 't' comes before 1 occurrence of 's'.
+  The first occurrence of 'v' comes before 1 occurrence of 's'.
+  The first occurrence of 'v' comes before 2 occurrences of 'e'.
+  The first occurrence of 't' comes before 2 occurrences of 'e'.
+  The first occurrence of 'i' comes before 2 occurrences of 'e'.
+  The first occurrence of 'v' comes before 1 occurrence of 't'.
+  The first occurrence of 'n' comes before 1 occurrence of 't'.
+  The first occurrence of 'v' comes before 1 occurrence of 'i'.
+  The first occurrence of 'i' comes before 1 occurrence of 't'.
+  The first occurrence of 'n' comes before 1 occurrence of 's'.
+
+I'm not much for word games or anagrams (actually, I hate them), so I wasn't
+interested in puzzling through this--maybe it was straightforward, I don't
+know.  Instead, I took the easy way:
+
+peter@Ancaeus ~ $ aspell dump master > dict.txt
+peter@Ancaeus ~ $ egrep "[^s]*e.*s" dict.txt | egrep "[^n]*i.*n" | egrep "^([^i]*i[^i]*){2}" | egrep "[^n]*n[^e]*e[^e]*e" | egrep "^([^e]*e[^e]*){2}$" | egrep "[^v]*i.*v" | egrep "[^n]*n.*i" | egrep "[^n]*n.*v" | egrep "[^i]*i.*s" | egrep "[^t]*t.*s" | egrep "[^v]*v.*s" | egrep "[^v]*v[^e]*e[^e]*e" | egrep "[^t]*t[^e]*e[^e]*e" | egrep "[^i]*i[^e]*e[^e]*e" | egrep "[^v]*v.*t" | egrep "[^n]*n.*t" | egrep "[^v]*v.*i" | egrep "[^i]*i.*t" | egrep "[^n]*n.*s"
+invitees
+vindictiveness
+vindictiveness's
+
+Not pretty, but straightforward, since the regexes can basically be copied
+directly from the individual clues.  Only three words satisfied all the con-
+straints, and it seemed pretty clear which was intended.
+
+With the URL cracked, the real programming challenge was revealed: use the
+Facebook Graph API to determine which of your friends shared the most likes and
+interests with you.  I think most people would agree that this was almost too
+easy, since (as I discovered) Facebook's Graph API makes this kind of thing a
+snap.
