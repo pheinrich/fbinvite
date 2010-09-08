@@ -48,6 +48,15 @@ Not pretty, but straightforward, since the regexes can basically be copied
 directly from the individual clues.  Only three words satisfied all the con-
 straints, and it seemed pretty clear which was intended.
 
+I subsequently refined the expression, since the clues make it clear that:
+
+  1. only the letters e, i, n, s, t, and v appear in the word
+  2. the letter s appears exactly once, at the end
+  3. the letters e and i appear exactly twice
+
+peter@Ancaeus ~ $ aspell dump master | egrep "^[eintv]{7,}s$" | egrep "n.*e{2}" | egrep "v.*e{2}"
+invitees
+
 With the URL cracked, the real programming challenge was revealed: use the
 Facebook Graph API to determine which of your friends shared the most likes and
 interests with you.  I think most people would agree that this was almost too
